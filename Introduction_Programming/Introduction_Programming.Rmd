@@ -1,13 +1,12 @@
 ---
-title: "Introduction to Programming and Statistics"
+title: "Introduction to Programming"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
-knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
-
+knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
@@ -15,6 +14,7 @@ load data
 
 ```{r loading-data, context = "data"}
 elec_demo <- read.csv("./www/election_demographics.csv")
+ice_cream <- read.csv("./www/ice_cream_sales.csv")
 
 ```
 
@@ -60,6 +60,8 @@ These numbers and the result (515158210549) are not stored anywhere. We can't ac
 Instead, we're better off using **variables**.
 - Variables are like containers or boxes. They can be empty or they can store something
   - In R, when we want to create a variable, we need to use the assignment operator: `<-`. 
+  - **NOTE:** Throughout these online tutorials, you'll see the assignment operator using: `<<-`
+    - with two left-angle brackets `<<`. This allows variables to be accessible across code chunks.
   - on the left side of the operator is the variable name, on the right side of the operator is the value we want to store
     - `num_five <- 5`
     - This stores the integer `5` in the variable `num_five`.
@@ -85,6 +87,12 @@ There are many different data **types**. To save time and space, I'll only over 
 - `"Hello!"` is a string where `Hello!` is not.
 - It's important to know what type of data you have because if you have numbers stored as characters, you can't do math using strings. 
   - so `"5"` is a string while `5` is an integer.
+
+```{r setupA}
+char_five <- "5"
+int_five <- 5
+```
+
   
 ```{r characters, echo=TRUE, error=TRUE, message=TRUE, exercise=TRUE}
 
@@ -123,7 +131,8 @@ A data frame is R's version of a spreadsheet. It has columns and rows and can st
 
 R has a built in function to check what class (or data type) an object is. You can use the `class()` function.
 
-```{r class-example, exercise=TRUE, dependson=-1}
+
+```{r class-example, exercise=TRUE, exercise.setup="setupA"}
 
 ## use the class function to check data types
 class(char_five)
@@ -137,8 +146,35 @@ For the most part, you won't need to worry about what type of data you'll be usi
 
 As demonstrated above, you can't combine strings and integers. We'll cover how to fix this as it comes up while working with data.
 
+### Functions
 
+Functions are blocks of codes that only run when called. We'll be using built-in functions to add and explore data. For example, let's look at the `head()` function. `head()` will return the first five rows of a data set. 
 
+R has several built-in data sets. We're going to look at the first five rows of the `cars` data set.
+
+```{r functions-intro, exercise=TRUE}
+head(cars)
+```
+
+## Loading and Examining Data
+
+In this section, we will learn how to load and work with data. R can load many different file types. We will primarily use `.csv` files, which are comma separated values. These are normal spreadsheets. 
+
+We're going to start with a very basic csv with 500 rows. It has two columns:
+- `Temperature`: This column lists the temperature in degrees Celsius.
+- `Revenue`: This column is the amount of ice cream sold, in dollars.
+
+The first step is to load the data. We do this by creating a **variable** to store the data once its loaded. We also use a default function in R `read.csv()`.
+
+The `read.csv()` function reads data stored in common separated value (`.csv`) files.
+
+```{r load-ice-cream, exercise=TRUE}
+ice_cream <- read.csv("./www/ice_cream_sales.csv")
+```
+
+For the line above to work, you'll need to change the `path`. The `path` is part of the code between the quotation marks `"`. It points to where the data is stored on your computer. 
+
+If you're running this on a web browser, you won't need to change anything. If you're using this code on your computer, just change the part in the quotation marks to where the data is stored on your computer. 
 
 
 
