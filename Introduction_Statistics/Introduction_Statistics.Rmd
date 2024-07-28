@@ -1,82 +1,155 @@
 ---
-title: "Tutorial"
+title: "Introduction to Programming and Statistics"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
-knitr::opts_chunk$set(echo = FALSE)
-```
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
 
-## Topic 1
-
-```{r loading data}
-elec_demo <- read.csv("./Data/Practice/election_demographics.csv")
 
 ```
 
+load data
 
-
-
-
-### Exercise
-
-*Here's a simple exercise with an empty code chunk provided for entering the answer.*
-
-Write the R code required to add two plus two:
-
-```{r two-plus-two, exercise=TRUE}
+```{r loading-data, context = "data"}
+elec_demo <- read.csv("./www/election_demographics.csv")
 
 ```
 
-### Exercise with Code
+## Programming Basics
 
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+All programming languages (e.g., R, Python, HTML, CSS, etc.) share similar components. We will start by learning about the basics of programming, before digging into our data.
 
-Now write a function that adds any two numbers and then call it:
+### Comments
 
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
+Comments are an integral part of the coding process. Comments are notes about what the code does, how it works, or to create sections (like using headers in a word doc). Comments help remember what your code does and helps other people understand your code when you share it.
+
+-   In R, comments begin with a \#
+    -   The pound, hash, or hashtag symbol tells R that the line that starts with a \# should not be run like the rest of the code.e
+-   In this workshop, \## indicates comments.
+    -   These lines should not be run and the \## should not be deleted.
+-   A single \# will be for lines of code that are commented out, but will run if you delete the #.
+
+```{r comment-example, exercise = TRUE}
+
+## this line will cause R to error if you delete the ##
+
+# print("If you delete the # on this line, it will run!")
+
+
+```
+
+### Variables
+
+The second part of all coding languages are **variables.** Variables are like boxes. Inside a variable we can store different values. For example, if we wanted to find the sum of 5 and 6, in the R console we can type `5+6` and hit enter. R will return `11`.
+
+R can also do more complicated math like adding and multiplying a bunch of numbers.
+
+
+```{r math-example, exercise = TRUE}
+
+5+6+8+65654*7846561+94651-15
+
+```
+
+
+These numbers and the result (515158210549) are not stored anywhere. We can't access these values again if we wanted them. We would have to run the code again if we wanted to get the same answer. That's not super efficient.
+
+Instead, we're better off using **variables**.
+- Variables are like containers or boxes. They can be empty or they can store something
+  - In R, when we want to create a variable, we need to use the assignment operator: `<-`. 
+  - on the left side of the operator is the variable name, on the right side of the operator is the value we want to store
+    - `num_five <- 5`
+    - This stores the integer `5` in the variable `num_five`.
+- When we store values into variables we can use the variables instead of the values to do different tasks.
+
+```{r variable-example, exercise=TRUE}
+## store the integer 5 into the variable num_five
+num_five <- 5
+
+## add num_five to 6
+num_five + 6
+```
+
+Variables can also hold different **data types**
+
+### Data Types
+
+There are many different data **types**. To save time and space, I'll only over the data types we'll use the most.
+
+#### characters or strings
+- characters or strings are words.
+- In code they're surrounded by quotation marks.
+- `"Hello!"` is a string where `Hello!` is not.
+- It's important to know what type of data you have because if you have numbers stored as characters, you can't do math using strings. 
+  - so `"5"` is a string while `5` is an integer.
   
-}
+```{r characters, echo=TRUE, error=TRUE, message=TRUE, exercise=TRUE}
+
+## store five as an integer
+int_five <- 5
+
+## the following line will work
+int_five + 6
+
+## store five as a character
+char_five <- "5"
+
+## the following line will give an error
+# char_five + 6
 ```
 
-## Topic 2
+In the code above, delete the \# before line 11 and run the code again. You will get an error that says `non-numeric argument to binary operator`. That's a fancy way of saying R does not know how to add the character `"5"` to the integer `6`. It would be like adding `a` to `6`.
 
-### Exercise with Hint
+#### numbers
 
-*Here's an exercise where the chunk is pre-evaluated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+So how do we store numbers? There are two main ways to store numeric values in R. 
+- **doubles** are numbers that have decimal points.
+  - `10.5`, `1241.22314`, and `56.0` are all doubles.
+- **integers** are whole numbers
+  - `1`, `12314151`, and `54` are all integers.
 
-Modify the following code to limit the number of rows printed to 5:
+#### lists
 
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
+Lists are vectors that contain other values. They can store strings, integers, doubles, and other variables. 
+
+#### data frames
+
+A data frame is R's version of a spreadsheet. It has columns and rows and can store a variety of data types.
+
+#### Finding an Object's Class
+
+R has a built in function to check what class (or data type) an object is. You can use the `class()` function.
+
+```{r class-example, exercise=TRUE, dependson=-1}
+
+## use the class function to check data types
+class(char_five)
+class(int_five)
+
 ```
 
-```{r print-limit-hint}
-head(mtcars)
-```
+#### Summary
 
-### Quiz
+For the most part, you won't need to worry about what type of data you'll be using. It only becomes an issue when you need to combine data together. 
 
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+As demonstrated above, you can't combine strings and integers. We'll cover how to fix this as it comes up while working with data.
 
-Some questions to verify that you understand the purposes of various base and recommended R packages:
 
-```{r quiz}
-quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
-  ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
-  )
-)
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
