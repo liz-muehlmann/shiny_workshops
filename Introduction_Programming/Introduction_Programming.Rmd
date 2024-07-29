@@ -10,10 +10,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-load data
 
 ```{r loading-data, context = "data"}
-elec_demo <- read.csv("./www/election_demographics.csv")
 ice_cream <- read.csv("./www/ice_cream_sales.csv")
 
 ```
@@ -156,25 +154,124 @@ R has several built-in data sets. We're going to look at the first five rows of 
 head(cars)
 ```
 
+
+Functions usually take **arguments**, which are additional instructions. In the example above, the argument `cars` is the name of the data set we want to get the `head()` of.
+
+## Getting and Setting the Working Directory  
+
+Before we can load data, we need to know what folder (also known as a directory) the computer is currently in. We do this by using the `getwd()` function. 
+
+```{r get-wd, exercise = TRUE}
+getwd()
+```
+
+The `getwd()` function returns the path to the current folder we are in. We can change it by using `setwd("Path/to/directory")` and changing the file `path`.
+
+The `path` is part of the code between the quotation marks `"`. It points to where the data is stored on your computer. 
+
+The `path` to the file can be **absolute** or **relative**. 
+
+- An **absolute** path is like giving step by step directions from your house to the store. 
+  - For example: `C:/Users/Liz/Documents/Data/` is an absolute path.
+  - It tells R that on the `C:/` drive, look in the `Users` folder, then inside the `Bortimus` folder, you'll find the `Documents` folder, and finally the data will be inside the `Data` folder.
+
+More often than not, we'll use **relative** directories.
+
+- A **relative** directory is like telling people that the store is two blocks from your house, or near another landmark.
+  - For example: `./Data/` is a relative directory that tells R to look in the current directory (folder) for the `Data` folder.
+  - `../Data/` is another relative directory that tells R in that we should look for the Data folder in the parent directory of where we are on our computer. 
+```{r setting-wd, eval=FALSE, echo=TRUE}
+setwd("C:/Users/Liz/Documents/Data")
+```
+
+If you're running this on a web browser, you won't need to change anything. The data is already loaded for you.
+
+If you're using this code on your computer, just change the part in the quotation marks to where the data is stored on your computer.
+
 ## Loading and Examining Data
 
 In this section, we will learn how to load and work with data. R can load many different file types. We will primarily use `.csv` files, which are comma separated values. These are normal spreadsheets. 
 
-We're going to start with a very basic csv with 500 rows. It has two columns:
-- `Temperature`: This column lists the temperature in degrees Celsius.
-- `Revenue`: This column is the amount of ice cream sold, in dollars.
+We're going to start with a very basic csv with 500 rows. 
 
-The first step is to load the data. We do this by creating a **variable** to store the data once its loaded. We also use a default function in R `read.csv()`.
+The first step is to load the data. We do this by creating a **variable** to store the data once it's loaded. We also use a default function in R `read.csv()`.
 
 The `read.csv()` function reads data stored in common separated value (`.csv`) files.
 
-```{r load-ice-cream, exercise=TRUE}
+```{r load-ice-cream, echo=TRUE}
 ice_cream <- read.csv("./www/ice_cream_sales.csv")
 ```
 
-For the line above to work, you'll need to change the `path`. The `path` is part of the code between the quotation marks `"`. It points to where the data is stored on your computer. 
+You will need to change the `path` or the part between the quotation marks `"` to the location of the data. The data is available on the Google Drive under `Data/practice`.
 
-If you're running this on a web browser, you won't need to change anything. If you're using this code on your computer, just change the part in the quotation marks to where the data is stored on your computer. 
+If you are using the web version of this tutorial, you do not need to change anything. The data is already loaded into the environment.
+
+#### inspecting the data
+
+We'll start by getting the names of the columns in our data set. We do this by using the `colnames()` function. Inside the `colnames` function, we need to tell R what data set to get the column names of, so we'll pass `ice_cream` as the argument.
+
+
+In the space below, find the column names for the `ice_cream` data 
+```{r column-names, exercise=TRUE}
+
+```
+
+Our data has two columns:
+
+- `Temperature`: This column lists the temperature in degrees celsius.
+- `Revenue`: This column is the amount of ice cream sold, in dollars.
+
+#### summarizing the data
+
+We can also get the summary of the data. The `summary()` function in R will give the minimum, maximum, median, mean, and value of first quartile (25%) and third quartile (75%)
+
+In the space below, use the `summary()` function to get an overview of our data by passing `ice_cream` as the argument.
+
+```{r summary-ice-cream, exercise=TRUE}
+
+```
+
+#### head & tail
+
+Another good way to look at our data is to view the head or tail. `head()` returns the top six rows and `tail` the bottom six. We can also include `n = #` to tell R to get more or fewer rows.
+
+In the space below, pass `ice_cream` as the argument for `head()` and `tail()`. 
+
+If you want to change how many rows are returned, use `head(<data-set-name>, n = 10)` 
+
+```{r head-tail, exercise=TRUE}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
