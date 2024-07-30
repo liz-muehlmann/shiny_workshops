@@ -8,6 +8,7 @@ runtime: shiny_prerendered
 library(learnr)
 library(tidyverse)
 library(ggplot2)
+library(mosaic)
 library(palmerpenguins)
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -63,7 +64,7 @@ Go ahead and try it below. Use the `glimpse()` function on the `penguins` data s
 
 ```
 
-```{r glimpse-palmer-hint, exercise=TRUE}
+```{r glimpse-palmer-hint}
 glimpse(penguins)
 ```
 
@@ -336,12 +337,61 @@ Scatterplots can show whether there's a positive, negative, or no correlation be
 
 ### adding in a categorical variable
 
+Categorical variables take on a limited number of values. For example, the month in which you were born is a categorical variable. It's only possible to have a birthday in one month. Type of penguin is also categorical variable because a penguin can only be of one type of penguin. 
+
+Let's add a categorical variable to our graph by coloring the points by species of penguin. We'll do this by adding `color = species` to our `aes()` call.
+
+```{r color-species, exercise=TRUE}
+
+```
+```{r color-species-hint}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           color = species)) +
+  geom_point()
+```
 
 
+This looks great, but what if we wanted something other than dots? We can change the shape of the points by using the `shape = ` argument in the `aes()` call. We'll set the shape and color to species.
 
+```{r color-shape, exercise=TRUE}
 
+```
+```{r color-shape-hint}
+penguins %>% 
+  ggplot(aes(x = bill_depth_mm,
+             y = bill_length_mm,
+             shape = species,
+             color = species)) +
+  geom_point()
+```
 
+## mosaic
 
+What if we want to make it **very** easy? We're going to use a new package, **mosaic**. 
+
+Mosaic gives us a point and click interface to make graphs using our data. 
+
+First, we have to install it. If you're using the web browser, it's already been installed, and then we have to load the library.
+
+```{r load-mosaic, eval=FALSE, include=TRUE}
+install.packages("mosaic")
+
+library(mosaic)
+
+## we might have to install another package called manipulate
+install.packages("manipulate")
+```
+
+We use mosaic by using `mPlot()` with the name of our data set in the parentheses. 
+
+```{r mosaic-plot, exercise=TRUE}
+
+```
+```{r mosaic-plot-hint}
+mPlot(penguins)
+```
 
 
 
