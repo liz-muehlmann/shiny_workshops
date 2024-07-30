@@ -1,0 +1,5 @@
+outs:
+- md5: aa12737265f72320da677296fab9129a
+  size: 1218
+  hash: md5
+  path: .Rhistory

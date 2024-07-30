@@ -1,0 +1,5 @@
+outs:
+- md5: 73adb4c694d4dd75e15038ed8703fd3a
+  size: 16
+  hash: md5
+  path: data_chunks_index.txt
