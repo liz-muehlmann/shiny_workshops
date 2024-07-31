@@ -1,0 +1,53 @@
+---
+title: "Introduction to Statistics pt. II: Controls & Interactions"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r loading-data, context = "data"}
+
+elec_demo <- read.csv("./www/election_demographics.csv") %>% 
+  mutate(DVP = (DEM/total_votes)*100,
+         RVP = (REP/total_votes)*100,
+         log_hhic = log(med_hhic))
+
+```
+
+## Controls
+
+In ![Introduction to Statistics]( https://liz-muehlmann.shinyapps.io/intro_stats/) we began looking at control variables.
+
+Controls are variables that are held constant throughout the experiment. In R, we can add controls by using `+ variable_name` after the original call. 
+
+Remember, in R, we can run a linear regression by using the formula `lm(Y ~ X, data = "data_to_use")`. When we add control variables, we use a `+` after the predictor (X) and then the name of the control variable. 
+
+In the following code chunk, `med_hhic` is predicting `DVP` while holding `perc_white` constant. 
+
+```{r lm-controls, exercise=TRUE, exercise.setup="add-vp"}
+
+## linear regression with controls
+## DVP is the dependent variable
+## log_hhic is the independent variable
+## perc_white is the control
+
+lm_controls <- lm(DVP ~ log_hhic + perc_white, data = elec_demo)
+
+## get the summary
+summary(lm_controls)
+```
+
+We can add multiple control values by adding `+ variable_name` after `+ perc_white`.
+
+In the box below, practice adding in controls. 
+
+```{r lm-practice-controls, exercise=TRUE}
+
+
+```
+
