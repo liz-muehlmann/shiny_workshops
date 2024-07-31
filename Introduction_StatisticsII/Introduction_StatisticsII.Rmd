@@ -11,7 +11,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r loading-data, context = "data"}
-
 elec_demo <- read.csv("./www/election_demographics.csv") %>% 
   mutate(DVP = (DEM/total_votes)*100,
          RVP = (REP/total_votes)*100,
@@ -21,15 +20,15 @@ elec_demo <- read.csv("./www/election_demographics.csv") %>%
 
 ## Controls
 
-In ![Introduction to Statistics]( https://liz-muehlmann.shinyapps.io/intro_stats/) we began looking at control variables.
+In [Introduction to Statistics](https://liz-muehlmann.shinyapps.io/intro_stats/) we began looking at control variables.
 
 Controls are variables that are held constant throughout the experiment. In R, we can add controls by using `+ variable_name` after the original call. 
 
 Remember, in R, we can run a linear regression by using the formula `lm(Y ~ X, data = "data_to_use")`. When we add control variables, we use a `+` after the predictor (X) and then the name of the control variable. 
 
-In the following code chunk, `med_hhic` is predicting `DVP` while holding `perc_white` constant. 
+In the following code chunk, `log_hhic` is predicting `DVP` while holding `perc_white` constant. 
 
-```{r lm-controls, exercise=TRUE, exercise.setup="add-vp"}
+```{r lm-controls, exercise=TRUE}
 
 ## linear regression with controls
 ## DVP is the dependent variable
