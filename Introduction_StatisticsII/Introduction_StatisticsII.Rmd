@@ -15,38 +15,101 @@ elec_demo <- read.csv("./www/election_demographics.csv") %>%
   mutate(DVP = (DEM/total_votes)*100,
          RVP = (REP/total_votes)*100,
          log_hhic = log(med_hhic))
-
 ```
 
-## Controls
+## Linear Regression & Controls
 
 In [Introduction to Statistics](https://liz-muehlmann.shinyapps.io/intro_stats/) we began looking at control variables.
 
-Controls are variables that are held constant throughout the experiment. In R, we can add controls by using `+ variable_name` after the original call. 
+Controls are variables that are held constant throughout the experiment. Control variables may influence the outcome, but they aren't what we're interested in primarily. 
 
-Remember, in R, we can run a linear regression by using the formula `lm(Y ~ X, data = "data_to_use")`. When we add control variables, we use a `+` after the predictor (X) and then the name of the control variable. 
+We are going to work with our data set `elec_demo`. 
 
-In the following code chunk, `log_hhic` is predicting `DVP` while holding `perc_white` constant. 
+Let's load the data (*reminder*: if you're using the web version, the data is already loaded):
 
-```{r lm-controls, exercise=TRUE}
-
-## linear regression with controls
-## DVP is the dependent variable
-## log_hhic is the independent variable
-## perc_white is the control
-
-lm_controls <- lm(DVP ~ log_hhic + perc_white, data = elec_demo)
-
-## get the summary
-summary(lm_controls)
+```{r load-data, echo=TRUE}
+elec_demo <- read.csv("./www/election_demographics.csv") %>% 
+  mutate(DVP = (DEM/total_votes)*100,
+         RVP = (REP/total_votes)*100,
+         log_hhic = log(med_hhic))
 ```
 
-We can add multiple control values by adding `+ variable_name` after `+ perc_white`.
 
-In the box below, practice adding in controls. 
+A linear regression in R uses the following form: `lm(Y ~ X, data = "data_set_to_use")`. In English, this translates to `linear model(Response ~ Predictor, data = "data_set_to_use)`. When we want to add in control variables, we add them using the `+` operator and then the variable we want to use as a control. The form then becomes `lm(Y ~ X + Z, data = "data_set_to_use")` where `Z` is our control variable. 
 
-```{r lm-practice-controls, exercise=TRUE}
+We're going to use the `elec_demo` data to add in controls to our linear regression model. 
 
+Let's predict Democratic Voting Percentage (`DVP`) using `median gross rent`.
+
+In the space below, use the variable `med_grossRent` to predict Democratic Voting Percentage, `DVP`.
+
+```{r lm-dvp, exercise=TRUE}
 
 ```
+
+```{r lm-dvp-hint}
+
+## run the linear regression
+## DV: Democratic Voting Percentage
+## IV: Median Gross Rent
+
+lm_dvp <- lm(DVP ~ med_grossRent, data = elec_demo)
+
+## get the summary output for the regression
+
+summary(lm_dvp)
+```
+
+
+In this model, we can see that as median gross rent increases by $100, democratic voting percentage increases by 0.04.
+
+
+## Adding in a Control
+
+```{r lm-dvp-control, exercise=TRUE}
+
+```
+
+```{r lm-control-hint}
+
+## run the linear regression
+## DV: Democratic Voting Percentage
+## IV: Median Gross Rent
+## Control: Percent of the population 
+
+lm_dvp <- lm(DVP ~ med_grossRent, data = elec_demo)
+
+## get the summary output for the regression
+
+summary(lm_dvp)
+```
+
+
+
+The first step in interpreting the model with multiple predictor variables (here, control, Hawthorne, and Neighbors) is to look at the *f-statistic* at the bottom of the model. Our *f-statistic* is < 0.05, which means that at least one of our predictors is statistically significant. 
+
+For each of our predictors, we can interpret the coefficient as the average effect on whether a person voted in the 2006 primary election while holding all other predictors fixed. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

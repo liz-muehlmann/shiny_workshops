@@ -1,0 +1,5 @@
+outs:
+- md5: 6266bd1882e0df2cfe62980bbc867204
+  size: 9137184
+  hash: md5
+  path: social.csv
