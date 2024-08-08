@@ -1,0 +1,6 @@
+outs:
+- md5: a1b87f904c561b35a8644bb97975e6c2.dir
+  size: 49444933
+  nfiles: 6
+  hash: md5
+  path: www
